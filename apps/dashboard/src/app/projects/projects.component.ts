@@ -1,73 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectsService, Project } from '@workshop/core-data';
-import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent implements OnInit {
-  primaryColor = 'red';
-  projects$;
-  selectedProject: Project;
 
-  constructor(private projectsService: ProjectsService) {
-  }
-
-  ngOnInit() {
-    this.getProjects();
-    this.resetProject();
-  }
-
-  selectProject(project) {
-    this.selectedProject = project;
-  }
-
-  resetProject() {
-    const emptyProject: Project = {
-      id: null,
-      title: '',
-      details: '',
-      percentComplete: 0,
+  projects = [
+    {
+      id: '1',
+      title: 'Project One',
+      details: 'This is a sample project',
+      percentComplete: 20,
       approved: false,
+    },
+    {
+      id: '2',
+      title: 'Project Two',
+      details: 'This is a sample project',
+      percentComplete: 40,
+      approved: false,
+    },
+    {
+      id: '3',
+      title: 'Project Three',
+      details: 'This is a sample project',
+      percentComplete: 100,
+      approved: true,
     }
-    this.selectProject(emptyProject);
-  }
+  ];
 
-  getProjects() {
-    this.projects$ = this.projectsService.all();
-  }
+  constructor() {}
 
-  saveProject(project) {
-    if(!project.id) {
-      this.createProject(project);
-    } else {
-      this.updateProject(project);
-    }
-  }
-
-  createProject(project) {
-    this.projectsService.create(project)
-      .subscribe(result => {
-        this.getProjects();
-        this.resetProject();
-      });
-  }
-
-  updateProject(project) {
-    this.projectsService.update(project)
-      .subscribe(result => {
-        this.getProjects();
-        this.resetProject();
-      });
-  }
-
-  deleteProject(project) {
-    this.projectsService.delete(project.id)
-      .subscribe(result => this.getProjects());
-  }
-
-  cancel() {
-    this.resetProject();
-  }
+  ngOnInit() {}
 }

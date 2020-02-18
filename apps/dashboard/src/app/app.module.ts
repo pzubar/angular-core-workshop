@@ -1,26 +1,24 @@
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NxModule } from '@nrwl/angular';
+import { RouterModule } from '@angular/router';
+import { NxModule } from '@nrwl/nx';
 import { MaterialModule } from '@workshop/material';
-import { UiLoginModule } from '@workshop/ui-login';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HomeModule } from './home/home.module';
+import { ProjectsModule } from './projects/projects.module';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     NxModule.forRoot(),
+    RouterModule.forRoot([], { initialNavigation: 'enabled' }),
     BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
     MaterialModule,
-    UiLoginModule,
-    AppRoutingModule
+    HomeModule,
+    ProjectsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
